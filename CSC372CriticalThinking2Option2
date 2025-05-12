@@ -1,0 +1,56 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.Period;
+
+public class CSC372CriticalThinking2Option2 {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Age Calculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 250);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 2));
+
+        JLabel labelDay = new JLabel("Day:");
+        JLabel labelMonth = new JLabel("Month:");
+        JLabel labelYear = new JLabel("Year:");
+        JTextField fieldDay = new JTextField();
+        JTextField fieldMonth = new JTextField();
+        JTextField fieldYear = new JTextField();
+        JButton calcButton = new JButton("Calculate Age");
+        JLabel resultLabel = new JLabel("Your age is: ");
+
+        panel.add(labelDay);
+        panel.add(fieldDay);
+        panel.add(labelMonth);
+        panel.add(fieldMonth);
+        panel.add(labelYear);
+        panel.add(fieldYear);
+        panel.add(new JLabel());
+        panel.add(calcButton);
+        panel.add(new JLabel());
+        panel.add(resultLabel);
+
+        frame.add(panel);
+        frame.setVisible(true);
+
+        calcButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int day = Integer.parseInt(fieldDay.getText());
+                    int month = Integer.parseInt(fieldMonth.getText());
+                    int year = Integer.parseInt(fieldYear.getText());
+                    LocalDate birthDate = LocalDate.of(year, month, day);
+                    LocalDate currentDate = LocalDate.now();
+                    Period age = Period.between(birthDate, currentDate);
+                    resultLabel.setText("Your age is: " + age.getYears() + " years.");
+                } catch (Exception ex) {
+                    resultLabel.setText("Invalid input. Please enter valid numbers.");
+                }
+            }
+        });
+    }
+}
